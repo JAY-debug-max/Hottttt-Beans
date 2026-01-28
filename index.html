@@ -164,11 +164,10 @@
             </div>
         </div>
 
-        <!-- 5. Work for Us Page --><div id="work" class="page-content">
+        <!-- 5. Work for Us Page --><div <div id="work" class="page-content">
     <h2 class="text-4xl font-bold text-cyan-400 mb-6 pb-2 border-b-2 border-gray-700">Why Work For Us?</h2>
     <p class="text-lg mb-8 text-gray-400">Hot beans offers more than just a job; we offer a career trajectory built on growth, mentorship, and fantastic benefits.</p>
     <p>fill out the the required information needed below</p>
-
 
     <!DOCTYPE html>
     <html lang="en">
@@ -176,28 +175,28 @@
         <meta charset="UTF-8">
         <title>Dark Mode Contact Form</title>
         <style>
-            /* 1. Body Styling for Dark Mode Background */
+            /* 1. Body Styling */
             body {
-                background-color: #1a1a1a; /* Dark gray/black for the background */
-                color: #f0f0f0; /* Light gray text for everything on the page */
+                background-color: #1a1a1a;
+                color: #f0f0f0;
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
             }
 
-            /* 2. General Form Container Styling */
-            form {
+            /* 2. Form Container Styling */
+            /* We added a class .form-container so both the Form and the Thank You msg share this look */
+            .form-box {
                 max-width: 500px;
                 margin: 20px auto;
                 padding: 30px;
-                background-color: #2c2c2c; /* Slightly lighter dark color for the form box */
-                border: 1px solid #444; /* Darker border */
+                background-color: #2c2c2c;
+                border: 1px solid #444;
                 border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             }
 
-            /* Styling for each field group (unchanged) */
-            div {
+            div.field-group {
                 margin-bottom: 15px;
             }
 
@@ -206,7 +205,7 @@
                 display: block;
                 margin-bottom: 5px;
                 font-weight: bold;
-                color: #f0f0f0; /* Ensure labels are white/light on the dark background */
+                color: #f0f0f0;
             }
 
             /* 4. Styles for Black Input Boxes */
@@ -216,24 +215,23 @@
             textarea {
                 width: 100%;
                 padding: 10px;
-                background-color: #000000; /* Black input background */
-                color: #ffffff; /* White text inside input */
-                border: 1px solid #666; /* Lighter border for contrast on black */
+                background-color: #000000;
+                color: #ffffff;
+                border: 1px solid #666;
                 border-radius: 4px;
                 box-sizing: border-box;
                 font-size: 16px;
             }
 
-                /* Focus state adjustment (blue focus is good contrast) */
-                input:focus, textarea:focus {
-                    border-color: #4CAF50; /* Changed focus color to a nice green */
-                    box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
-                    outline: none;
-                }
+            input:focus, textarea:focus {
+                border-color: #4CAF50;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+                outline: none;
+            }
 
-            /* 5. Styling the Submit Button (adjusted color for dark theme) */
+            /* 5. Styling the Submit Button */
             button[type="submit"] {
-                background-color: #4CAF50; /* Green for action button */
+                background-color: #4CAF50;
                 color: white;
                 padding: 10px 15px;
                 border: none;
@@ -242,11 +240,13 @@
                 font-size: 16px;
                 font-weight: bold;
                 transition: background-color 0.3s ease;
+                width: 100%; /* Made full width for better look */
             }
 
-                button[type="submit"]:hover {
-                    background-color: #45a049;
-                }
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
             /* 6. NEW: Thank You Message Styling */
             #thankYouMessage {
                 display: none; /* Hidden by default */
@@ -274,37 +274,66 @@
     </head>
     <body>
 
-        <form action="/submit-form" method="POST">
-            <h2>Contact Us</h2>
+        <div class="form-box">
+            
+            <form id="myContactForm" action="/submit-form" method="POST">
+                <h2 style="margin-top:0;">Contact Us</h2>
 
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="user_name" required>
+                <div class="field-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="user_name" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="user_email" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="user_phone">
+                </div>
+
+                <div class="field-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="user_message" rows="5" required></textarea>
+                </div>
+
+                <div class="field-group">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+
+            <div id="thankYouMessage">
+                <span class="checkmark">✔</span>
+                <h2>Message Sent!</h2>
+                <p>Thank you for contacting Hot Beans.</p>
+                <p>We have received your details and will get back to you shortly.</p>
             </div>
 
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="user_email" required>
-            </div>
+        </div>
 
-            <div>
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="user_phone">
-            </div>
+        <script>
+            document.getElementById('myContactForm').addEventListener('submit', function(event) {
+                // 1. Stop the page from reloading/redirecting
+                event.preventDefault();
 
-            <div>
-                <label for="message">Message:</label>
-                <textarea id="message" name="user_message" rows="5" required></textarea>
-            </div>
+                // 2. Hide the form
+                var form = document.getElementById('myContactForm');
+                form.style.display = 'none';
 
-            <div>
-                <button type="submit">Send Message</button>
-            </div>
-        </form>
+                // 3. Show the Thank You message
+                var message = document.getElementById('thankYouMessage');
+                message.style.display = 'block';
+
+                // Optional: Scroll to the message if the page is long
+                message.scrollIntoView({behavior: "smooth"});
+            });
+        </script>
 
     </body>
-</html>
-
+    </html>
+</div>
 
 <div class="space-y-6 bg-gray-800 p-6 rounded-xl shadow-lg">
     <div class="flex items-start">
@@ -412,6 +441,7 @@
 </body>
 
 </html>
+
 
 
 
